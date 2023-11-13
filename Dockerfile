@@ -3,7 +3,7 @@
 # Initially based upon:
 # https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-in-docker
 
-FROM node:21.1.0-buster-slim
+FROM node:lts-buster-slim
 
 WORKDIR /app
 
@@ -29,7 +29,8 @@ WORKDIR /app
 COPY ./package.json ./
 RUN mkdir /home/.cache
 RUN npm install puppeteer
-RUN node node_modules/puppeteer/install.js
+RUN node node_modules/puppeteer/install.mjs
+RUN cp -r /root/.cache/puppeteer /home/.cache/puppeteer
 
 # Install dependencies
 RUN apt-get update &&\
